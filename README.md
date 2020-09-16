@@ -33,9 +33,10 @@ cd /etc/supervisor/conf.d
 sudo touch gunicorn.conf
 
 ##In the file file do following###
+##
 [program:gunicorn]
-directory=/home/ubuntu/AwsDemo
-command=/home/ubuntu/env/bin/gunicorn --workers 3 --bind  unix:/home/ubuntu/AwsDemo/app.sock TestProject.wsgi:application
+directory=/home/ubuntu/aws-django-test
+command=/home/ubuntu/env/bin/gunicorn --workers 3 --bind  unix:/home/ubuntu/aws-django-test/app.sock new_app.wsgi:application
 autostart=true
 autorestart=true
 stderr_logfile=/var/log/gunicorn/gunicorn.err.log
@@ -43,6 +44,7 @@ stdout_logfile=/var/log/gunicorn/gunicorn.out.log
 
 [group:guni]
 Program:gunicorn
+##
 ####endfile####
 
 
@@ -69,7 +71,7 @@ server {
 
     location / {
         include proxy_params;
-        proxy_pass http://unix:/home/ubuntu/AwsDemo/app.sock;
+        proxy_pass http://unix:/home/ubuntu/aws-django-test/app.sock;
     }
 }
 ############
